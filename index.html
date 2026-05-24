@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shakil Ahmed | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --font-title: 'Sora', sans-serif;
+            --font-body: 'Manrope', sans-serif;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
+            --shadow-soft: 0 20px 50px rgba(6, 10, 30, 0.45);
+            --shadow-lift: 0 30px 70px rgba(8, 16, 46, 0.38);
+        }
+
+        body[data-theme='dark'] {
+            --bg: #080c1f;
+            --bg-soft: #101833;
+            --surface: rgba(18, 28, 56, 0.78);
+            --surface-solid: #121f40;
+            --text: #eaf0ff;
+            --muted: #9caac8;
+            --primary: #00c8ff;
+            --secondary: #2ed39e;
+            --ring: rgba(0, 200, 255, 0.4);
+            --line: rgba(139, 169, 255, 0.2);
+        }
+
+        body[data-theme='light'] {
+            --bg: #f3f7ff;
+            --bg-soft: #e8efff;
+            --surface: rgba(255, 255, 255, 0.8);
+            --surface-solid: #ffffff;
+            --text: #102141;
+            --muted: #4a5b7b;
+            --primary: #1f69ff;
+            --secondary: #0ca678;
+            --ring: rgba(31, 105, 255, 0.25);
+            --line: rgba(16, 33, 65, 0.12);
+            --shadow-soft: 0 16px 35px rgba(16, 33, 65, 0.16);
+            --shadow-lift: 0 24px 46px rgba(16, 33, 65, 0.18);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: background 0.35s ease, color 0.35s ease;
+        }
+
+        .container {
+            width: min(1140px, 92vw);
+            margin-inline: auto;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            inset: 0 0 auto 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--line);
+            background: color-mix(in srgb, var(--bg) 80%, transparent);
+            backdrop-filter: blur(18px);
+            transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        .nav-shell {
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            align-items: center;
+            gap: 1.2rem;
+            min-height: 78px;
+        }
+
+        /* UPDATED LOGO CSS */
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px; /* Adjust logo height */
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover img {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 1.4rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            opacity: 0.84;
+            transition: opacity 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -7px;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.24s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+            opacity: 1;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            transform: scaleX(1);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+        }
+
+        /* NEW BUTTON STYLES FOR RESUME & GITHUB */
+        .nav-btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 16px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            color: var(--text);
+            background: transparent;
+            text-decoration: none;
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn-outline i {
+            font-size: 0.8rem;
+        }
+
+        .nav-btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: color-mix(in srgb, var(--primary) 5%, transparent);
+        }
+
+        .desktop-only {
+            display: inline-flex;
+        }
+
+        .mobile-nav-item {
+            display: none;
+        }
+
+        .language-select,
+        .theme-toggle {
+            border: 1px solid var(--line);
+            background: var(--surface);
+            color: var(--text);
+            border-radius: 999px;
+            height: 40px;
+            padding-inline: 0.9rem;
+            font-family: var(--font-body);
+            font-weight: 600;
+        }
+
+        .language-select {
+            min-width: 118px;
+        }
+
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            cursor: pointer;
+        }
+
+        .hamburger {
+            border: 1px solid var(--line);
+            background: var(--surface);
+            border-radius: 12px;
+            width: 42px;
+            height: 42px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 19px;
+            height: 2px;
+            background: var(--text);
+            transition: transform 0.24s ease, opacity 0.24s ease;
+        }
+
+        /* --- GLOBAL SECTION STYLES --- */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: var(--font-title);
+            font-size: clamp(1.8rem, 1.4rem + 1.9vw, 2.8rem);
+            margin-bottom: 3.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            margin: 0.95rem auto 0;
+            width: 84px;
+            height: 4px;
+            border-radius: 99px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 80px; 
+            overflow: hidden;
+            background: var(--bg);
+        }
+
+        .hero-bg-shapes {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            filter: blur(90px);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: floatShape 20s infinite alternate ease-in-out;
+        }
+
+        .shape-1 { width: 400px; height: 400px; background: var(--primary); top: -10%; left: -5%; }
+        .shape-2 { width: 350px; height: 350px; background: var(--secondary); bottom: -5%; right: -5%; animation-delay: -5s; }
+        .shape-3 { width: 300px; height: 300px; background: rgba(102, 115, 255, 0.6); top: 40%; left: 40%; transform: translate(-50%, -50%); animation-delay: -10s; }
+
+        @keyframes floatShape {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, 60px) scale(1.15); }
+        }
+
+        .hero-container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 50px;
+            background: color-mix(in srgb, var(--primary) 12%, transparent);
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.8rem;
+            border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+            backdrop-filter: blur(10px);
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-family: var(--font-title);
+            font-size: clamp(2.8rem, 5vw + 1rem, 5.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: var(--text);
+            font-weight: 500;
+            margin-bottom: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--muted);
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: none;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 0.9rem 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover { transform: translateY(-3px); }
+
+        .btn-primary { color: #fff; background: linear-gradient(110deg, var(--primary), var(--secondary)); }
+        .btn-glow { box-shadow: 0 10px 25px color-mix(in srgb, var(--primary) 40%, transparent); }
+        .btn-glow:hover { box-shadow: 0 15px 35px color-mix(in srgb, var(--primary) 60%, transparent); }
+        
+        .btn-secondary { color: var(--text); border: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 50%, transparent); backdrop-filter: blur(10px); }
+        .btn-secondary:hover { background: var(--surface-solid); border-color: var(--primary); }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .scroll-indicator:hover { opacity: 1; }
+
+        .mouse {
+            width: 26px;
+            height: 42px;
+            border: 2px solid var(--muted);
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .wheel {
+            width: 4px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 2px;
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scroll 1.5s infinite;
+        }
+
+        @keyframes scroll {
+            0% { top: 6px; opacity: 1; }
+            100% { top: 20px; opacity: 0; }
+        }
+
+        /* --- BACKGROUND SECTIONS --- */
+        .about, .achievements, .contact { background: color-mix(in srgb, var(--bg-soft) 65%, transparent); }
+        .skills, .education, .projects { background: transparent; }
+
+        /* --- ABOUT SECTION --- */
+        .about-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .profile-placeholder {
+            width: 250px;
+            aspect-ratio: 1;
+            margin-inline: auto;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 5rem;
+            color: #fff;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+            border: 4px solid color-mix(in srgb, var(--primary) 30%, transparent);
+        }
+
+        .profile-image { width: 100%; height: 100%; object-fit: cover; }
+
+        .about-text p { color: var(--muted); margin-bottom: 1.2rem; font-size: 1.05rem; }
+
+        .about-info {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-sm);
+            padding: 0.8rem 1rem;
+            background: var(--surface);
+            font-weight: 600;
+        }
+
+        .info-item i { color: var(--primary); font-size: 1.2rem; }
+
+        /* --- NEW SKILLS SECTION --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .skill-card {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        .skill-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--line);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .skill-card h3 i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-tag {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.6rem 1.2rem;
+            background: color-mix(in srgb, var(--surface-solid) 60%, transparent);
+            border: 1px solid var(--line);
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .skill-tag:hover {
+            background: color-mix(in srgb, var(--primary) 15%, transparent);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .skill-tag i { font-size: 1.1rem; }
+
+        /* Specific Colors for Tech Icons */
+        .icon-c { color: #00599C; }
+        .icon-cpp { color: #00599C; }
+        .icon-python { color: #FFD43B; }
+        .icon-html { color: #E34F26; }
+        .icon-css { color: #1572B6; }
+        .icon-db { color: #4479A1; }
+        .icon-git { color: #F05032; }
+        .icon-github { color: #eaf0ff; }
+        .icon-vscode { color: #007ACC; }
+        .icon-codeblocks { color: #22B24C; }
+
+        /* --- EDUCATION TIMELINE --- */
+        .timeline {
+            max-width: 830px;
+            margin-inline: auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(var(--primary), var(--secondary));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            left: 4px;
+            top: 19px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 0 4px color-mix(in srgb, var(--bg) 84%, transparent);
+        }
+
+        .timeline-content {
+            padding: 1.8rem;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: var(--surface);
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateX(10px);
+            border-color: var(--primary);
+        }
+
+        .timeline-content h3 { font-family: var(--font-title); margin-bottom: 0.5rem; font-size: 1.25rem; }
+        .timeline-date { color: var(--primary); font-weight: 700; margin-bottom: 0.8rem; display: block; }
+        .timeline-content p { color: var(--muted); }
+        .timeline-content strong { color: var(--text); }
+
+        /* --- NEW PROJECTS SECTION --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: var(--surface);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px color-mix(in srgb, var(--primary) 20%, transparent);
+            border-color: color-mix(in srgb, var(--primary) 50%, transparent);
+        }
+
+        .project-image {
+            height: 220px;
+            background: linear-gradient(135deg, #0cebeb, #20e3b2, #29ffc6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image i {
+            font-size: 5rem;
+            color: rgba(255, 255, 255, 0.9);
+            transition: transform 0.4s ease;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+        }
+
+        .project-card:hover .project-image i {
+            transform: scale(1.15) translateY(-5px);
+        }
+
+        .project-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--surface-solid);
+        }
+
+        .project-content h3 {
+            font-family: var(--font-title);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .project-content p {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.8rem;
+            flex-grow: 1;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-tags span {
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: color-mix(in srgb, var(--primary) 10%, transparent);
+            color: var(--primary);
+            border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-github {
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--line);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-github:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+            box-shadow: 0 5px 15px color-mix(in srgb, var(--primary) 40%, transparent);
+        }
+
+        /* --- ACHIEVEMENTS SECTION --- */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .achievement-card {
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: var(--surface);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 35px color-mix(in srgb, var(--primary) 20%, transparent);
+        }
+
+        .achievement-icon {
+            width: 75px;
+            height: 75px;
+            margin-bottom: 1.5rem;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 8px 20px color-mix(in srgb, var(--primary) 30%, transparent);
+        }
+
+        .achievement-card h3 {
+            font-family: var(--font-title);
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+            flex-grow: 1;
+        }
+
+        .btn-cert {
+            padding: 0.6rem 1.4rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 99px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cert:hover {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 5px 15px color-mix(in srgb, var(--primary) 40%, transparent);
+        }
+
+        /* --- CONTACT SECTION --- */
+        .contact-content {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .contact-info h3 {
+            font-family: var(--font-title);
+            font-size: clamp(1.6rem, 1.2rem + 0.8vw, 2.2rem);
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-info p {
+            color: var(--muted);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text);
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+
+        .contact-item i {
+            color: var(--primary);
+            font-size: 1.3rem;
+            width: 25px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.2rem;
+            text-decoration: none;
+            background: color-mix(in srgb, var(--surface-solid) 80%, transparent);
+            border: 1px solid var(--line);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(130deg, var(--primary), var(--secondary));
+            border-color: transparent;
+            box-shadow: 0 8px 20px color-mix(in srgb, var(--primary) 40%, transparent);
+        }
+
+        .contact-form {
+            padding: 2rem;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: var(--surface);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .form-group { margin-bottom: 1.2rem; }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-sm);
+            background: color-mix(in srgb, var(--bg) 80%, transparent);
+            color: var(--text);
+            font-family: var(--font-body);
+            padding: 1rem 1.2rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 15%, transparent);
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            border-top: 1px solid var(--line);
+            padding: 2.5rem 0;
+            text-align: center;
+            color: var(--muted);
+            background: var(--bg);
+        }
+
+        /* --- ANIMATIONS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 1050px) {
+            .desktop-only { display: none !important; }
+            .mobile-nav-item {
+                display: flex;
+                margin-top: 0.8rem;
+                padding-top: 0.8rem;
+                border-top: 1px solid var(--line);
+            }
+            .mobile-nav-item .nav-btn-outline {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 960px) {
+            .nav-shell { grid-template-columns: auto 1fr auto; }
+            .nav-menu {
+                position: fixed; inset: 79px 16px auto 16px;
+                background: var(--surface-solid); border: 1px solid var(--line);
+                border-radius: 18px; box-shadow: var(--shadow-lift);
+                padding: 1.5rem; flex-direction: column;
+                transform: scale(0.98); opacity: 0; pointer-events: none;
+                transition: opacity 0.25s ease, transform 0.25s ease;
+            }
+            .nav-menu.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+            .hamburger { display: flex; }
+            .about-content, .contact-content { grid-template-columns: 1fr; gap: 2.5rem; }
+            .about-image { order: -1; }
+        }
+
+        @media (max-width: 768px) {
+            section { padding: 80px 0; }
+            .skills-grid, .projects-grid, .achievements-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+            .timeline-item { padding-left: 35px; }
+            .hero-title { font-size: 3rem; }
+            .about-info { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            section { padding: 60px 0; }
+            .skills-grid, .projects-grid, .achievements-grid { grid-template-columns: 1fr; }
+            
+            .nav-actions { gap: 0.4rem; }
+            .language-select { min-width: 100px; padding-inline: 0.5rem; font-size: 0.85rem; }
+            .theme-toggle span { display: none; }
+            
+            .hero-title { font-size: 2.5rem; }
+            .hero-buttons { flex-direction: column; width: 100%; }
+            .btn { width: 100%; text-align: center; justify-content: center; }
+            
+            .profile-placeholder { width: 200px; border-width: 3px; }
+            .section-title { font-size: 2rem; margin-bottom: 2.5rem; }
+            
+            .contact-form { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <nav class="navbar">
+        <div class="container nav-shell">
+            <a href="#home" class="logo" aria-label="Home">
+                <img src="https://raw.githubusercontent.com/shakil1815/For-use-online-Photo/2114519a2858ab1c76aa78d5deca2c78efd0a057/website%20logo%20.png" alt="Shakil Ahmed Logo">
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link" data-i18n="nav.home">Home</a></li>
+                <li><a href="#about" class="nav-link" data-i18n="nav.about">About</a></li>
+                <li><a href="#skills" class="nav-link" data-i18n="nav.skills">Skills</a></li>
+                <li><a href="#education" class="nav-link" data-i18n="nav.education">Education</a></li>
+                <li><a href="#projects" class="nav-link" data-i18n="nav.projects">Projects</a></li>
+                <li><a href="#achievements" class="nav-link" data-i18n="nav.achievements">Achievements</a></li>
+                <li><a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+                
+                <li class="mobile-nav-item">
+                    <a href="https://github.com/shakil1815/For-use-online-Photo/blob/68f79a7328a00db315209db28bbf1195ed0275d7/Shakil_Ahmed_CV_Updated%20(1).pdf" target="_blank" rel="noopener noreferrer" class="nav-btn-outline">
+                        RESUME <i class="fas fa-arrow-up-right-from-square"></i>
+                    </a>
+                </li>
+                <li class="mobile-nav-item" style="border: none; padding-top: 0; margin-top: 0.5rem;">
+                    <a href="https://github.com/shakil1815" target="_blank" rel="noopener noreferrer" class="nav-btn-outline">
+                        GITHUB <i class="fab fa-github"></i> <i class="fas fa-arrow-up-right-from-square"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="nav-actions">
+                <a href="https://github.com/shakil1815/For-use-online-Photo/blob/68f79a7328a00db315209db28bbf1195ed0275d7/Shakil_Ahmed_CV_Updated%20(1).pdf" target="_blank" rel="noopener noreferrer" class="nav-btn-outline desktop-only">
+                    RESUME <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+                <a href="https://github.com/shakil1815" target="_blank" rel="noopener noreferrer" class="nav-btn-outline desktop-only">
+                    GITHUB <i class="fab fa-github"></i> <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+
+                <label class="sr-only" for="languageSelect">Language</label>
+                <select id="languageSelect" class="language-select" aria-label="Choose language">
+                    <option value="en">English</option>
+                    <option value="de">Deutsch</option>
+                    <option value="bn">বাংলা</option>
+                </select>
+                <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                    <span data-i18n="theme.dark">Dark</span>
+                </button>
+            </div>
+            <button class="hamburger" aria-label="Toggle menu" type="button">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section id="home" class="hero reveal">
+        <div class="hero-bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+
+        <div class="hero-container">
+            <h1 class="hero-title" data-i18n="hero.title">Hi, I'm <br><span class="highlight">Shakil Ahmed</span></h1>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">Undergraduate CSE Student | Aspiring Software Engineer | Competitive Programmer</p>
+            <p class="hero-description" data-i18n="hero.description">My goal is to build a successful career in the tech and IT industry by creating innovative solutions, contributing to impactful projects, and continuously growing as a developer.</p>
+            
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary btn-glow" data-i18n="hero.btnContact">Get In Touch <i class="fas fa-arrow-right"></i></a>
+                <a href="#projects" class="btn btn-secondary" data-i18n="hero.btnProjects">View Projects <i class="fas fa-code"></i></a>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="about.title">About Me</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="profile-placeholder">
+                        <img src="https://raw.githubusercontent.com/shakil1815/For-use-online-Photo/dd2e075261b1cf793201c8c7146c45f3ee50d4db/WhatsApp%20Image%202026-05-24%20at%202.09.43%20PM.jpeg" alt="Shakil Ahmed" class="profile-image">
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p data-i18n="about.p1">Hello! I am Shakil Ahmed, a dedicated Computer Science and Engineering student currently in my 1st year, 2nd semester at Pirojpur Science and Technology University. My academic journey is built on a strong foundation, having achieved a GPA of 5.00 in my SSC from Sonar Bangla Secondary High School and a 4.58 in my HSC from Alekanda Govt. College, Barishal.</p>
+                    <p data-i18n="about.p2">I am passionate about problem-solving and software development. My current technical toolkit includes C, C++, Python, and MySQL. To continuously sharpen my algorithmic thinking and coding efficiency, I regularly tackle competitive programming challenges on platforms like Codeforces, CodeChef, and HackerRank.</p>
+                    <p data-i18n="about.p3">My ultimate goal is to build a successful career in the tech and IT sector, where I can leverage my skills to contribute to innovative projects and continuously grow as a developer.</p>
+                    <div class="about-info">
+                        <div class="info-item"><i class="fas fa-graduation-cap"></i><span data-i18n="about.info1">BSc in CSE, PrSTU</span></div>
+                        <div class="info-item"><i class="fas fa-map-marker-alt"></i><span data-i18n="about.info2">Barguna, Bangladesh</span></div>
+                        <div class="info-item"><i class="fas fa-calendar"></i><span data-i18n="about.info3">Expected 2028</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="skills reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="skills.title">My Skills</h2>
+            <div class="skills-grid">
+                
+                <div class="skill-card">
+                    <h3 data-i18n="skills.card1.title"><i class="fas fa-code"></i> Languages</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag"><i class="fab fa-c icon-c"></i> C</span>
+                        <span class="skill-tag"><i class="fab fa-cuttlefish icon-cpp"></i> C++</span>
+                        <span class="skill-tag"><i class="fab fa-python icon-python"></i> Python</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <h3 data-i18n="skills.card2.title"><i class="fas fa-laptop-code"></i> Web Development</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag"><i class="fab fa-html5 icon-html"></i> HTML5</span>
+                        <span class="skill-tag"><i class="fab fa-css3-alt icon-css"></i> CSS3</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <h3 data-i18n="skills.card3.title"><i class="fas fa-database"></i> Database</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag"><i class="fas fa-database icon-db"></i> MySQL</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <h3 data-i18n="skills.card4.title"><i class="fas fa-code-branch"></i> Version Control</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag"><i class="fab fa-git-alt icon-git"></i> Git</span>
+                        <span class="skill-tag"><i class="fab fa-github icon-github"></i> GitHub</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <h3 data-i18n="skills.card5.title"><i class="fas fa-tools"></i> IDEs / Tools</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag"><i class="fas fa-code icon-vscode"></i> VS Code</span>
+                        <span class="skill-tag"><i class="fas fa-cubes icon-codeblocks"></i> CodeBlocks</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="education reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="education.title">Education</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 data-i18n="education.bsc.title">B.Sc. in Computer Science and Engineering</h3>
+                        <p class="timeline-date" data-i18n="education.bsc.date">2023 - Expected 2028</p>
+                        <p><strong data-i18n="education.bsc.uni">Pirojpur Science and Technology University (PrSTU)</strong></p>
+                        <p data-i18n="education.bsc.desc">Focused on competitive programming, data structures, algorithms, OOP with C++, and software engineering fundamentals.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 data-i18n="education.hsc.title">Higher Secondary Certificate (HSC)</h3>
+                        <p class="timeline-date" data-i18n="education.hsc.date">Passed 2023</p>
+                        <p><strong data-i18n="education.hsc.school">Alekanda Govt. College, Barishal</strong></p>
+                        <p><strong data-i18n="education.hsc.gpa">GPA: 4.58</strong></p>
+                        <p data-i18n="education.hsc.desc">Completed with a science background, building strong fundamentals in mathematics and physics.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 data-i18n="education.ssc.title">Secondary School Certificate (SSC)</h3>
+                        <p class="timeline-date" data-i18n="education.ssc.date">Completed</p>
+                        <p><strong data-i18n="education.ssc.school">Ayla Patakata Sonarbangla High School, Barguna</strong></p>
+                        <p><strong data-i18n="education.ssc.gpa">GPA: 5.00</strong></p>
+                        <p data-i18n="education.ssc.desc">Started my academic journey with a passion for science and technology.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="projects.title">My Projects</h2>
+            <div class="projects-grid">
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-i18n="projects.card1.title">C++ Programming Code(Basic,OOP,STL)</h3>
+                        <p data-i18n="projects.card1.desc">A comprehensive practice repository covering core C++ fundamentals, Object-Oriented Programming, and the Standard Template Library (STL).</p>
+                        <div class="project-tags">
+                            <span>C++</span>
+                            <span>OOP</span>
+                            <span>STL</span>
+                            <span>GitHub</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/shakil1815/CPP-Programming-Practice.git" target="_blank" rel="noopener noreferrer" class="btn-github">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image" style="background: linear-gradient(135deg, #0cebeb, #2ed39e);">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-i18n="projects.card2.title">C Programming Code</h3>
+                        <p data-i18n="projects.card2.desc">A collection of my C programming codes covering basic concepts, logic building, and problem-solving.</p>
+                        <div class="project-tags">
+                            <span data-i18n="projects.card2.tag1">C</span>
+                            <span data-i18n="projects.card2.tag2">Programming</span>
+                            <span>GitHub</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/shakil1815/C-Program-My-Code.git" target="_blank" rel="noopener noreferrer" class="btn-github">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements" class="achievements reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="achievements.title">Achievements & Certifications</h2>
+            <div class="achievements-grid">
+                
+                <div class="achievement-card">
+                    <div class="achievement-icon"><i class="fas fa-award"></i></div>
+                    <h3 data-i18n="ach.card1">16th Undergraduate Math Olympiad</h3>
+                    <a href="https://github.com/shakil1815/For-use-online-Photo/blob/e226862c73faac40c4746470f4f3b7dc6090b110/16th%20math%20olampiad%20certification.jpeg" target="_blank" rel="noopener noreferrer" class="btn-cert" data-i18n="ach.btn">View Certificate</a>
+                </div>
+                
+                <div class="achievement-card">
+                    <div class="achievement-icon"><i class="fas fa-file-excel"></i></div>
+                    <h3 data-i18n="ach.card2">Coursera MS Excel Course</h3>
+                    <a href="https://github.com/shakil1815/For-use-online-Photo/blob/e226862c73faac40c4746470f4f3b7dc6090b110/Coursera%20Ms%20Excel%20Course%20Certificate%20X1QIIOSCCT7Z.pdf" target="_blank" rel="noopener noreferrer" class="btn-cert" data-i18n="ach.btn">View Certificate</a>
+                </div>
+                
+                <div class="achievement-card">
+                    <div class="achievement-icon"><i class="fas fa-file-code"></i></div>
+                    <h3 data-i18n="ach.card3">Coursera C Programming</h3>
+                    <a href="https://github.com/shakil1815/For-use-online-Photo/blob/e226862c73faac40c4746470f4f3b7dc6090b110/Coursera%20c%20programming%208AECJM75XR8A.pdf" target="_blank" rel="noopener noreferrer" class="btn-cert" data-i18n="ach.btn">View Certificate</a>
+                </div>
+                
+                <div class="achievement-card">
+                    <div class="achievement-icon"><i class="fab fa-js"></i></div>
+                    <h3 data-i18n="ach.card4">Educative HTML, CSS, JavaScript</h3>
+                    <a href="https://github.com/shakil1815/For-use-online-Photo/blob/e226862c73faac40c4746470f4f3b7dc6090b110/Educative%20HTML%20CSS%20Javascript.pdf" target="_blank" rel="noopener noreferrer" class="btn-cert" data-i18n="ach.btn">View Certificate</a>
+                </div>
+                
+                <div class="achievement-card">
+                    <div class="achievement-icon"><i class="fas fa-cogs"></i></div>
+                    <h3 data-i18n="ach.card5">Educative OOP with C++</h3>
+                    <a href="https://github.com/shakil1815/For-use-online-Photo/blob/e226862c73faac40c4746470f4f3b7dc6090b110/Educative%20OOP%20with%20C%2B%2B.pdf" target="_blank" rel="noopener noreferrer" class="btn-cert" data-i18n="ach.btn">View Certificate</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="contact.title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3 data-i18n="contact.subtitle">Let's Connect</h3>
+                    <p data-i18n="contact.desc">I am always open to discussing competitive programming, collaboration, and technology opportunities around the world.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>shakil.ahmed.mobin@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-university"></i>
+                            <span data-i18n="contact.university">Pirojpur Science and Technology University</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span data-i18n="contact.location">Barguna, Bangladesh</span>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/shakil1815" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/shakil-ahmed" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://codeforces.com/profile/Voided_Shakil" target="_blank" rel="noopener noreferrer" class="social-link" title="Codeforces"><i class="fas fa-code"></i></a>
+                        <a href="https://www.facebook.com/shakil1815" target="_blank" rel="noopener noreferrer" class="social-link" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" data-i18n-placeholder="contact.form.name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" data-i18n-placeholder="contact.form.email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" rows="5" data-i18n-placeholder="contact.form.message" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" data-i18n="contact.form.button">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p data-i18n="footer.copy">Copyright 2026 Shakil Ahmed. All rights reserved.</p>
+            <p data-i18n="footer.note">Designed by a PrSTU CSE student with global ambition.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const navbar = document.querySelector('.navbar');
+        const sections = document.querySelectorAll('section');
+        const themeToggle = document.getElementById('themeToggle');
+        const languageSelect = document.getElementById('languageSelect');
+        const contactForm = document.getElementById('contactForm');
+
+        const translations = {
+            en: {
+                'nav.home': 'Home',
+                'nav.about': 'About',
+                'nav.skills': 'Skills',
+                'nav.education': 'Education',
+                'nav.projects': 'Projects',
+                'nav.achievements': 'Achievements',
+                'nav.contact': 'Contact',
+                
+                'theme.dark': 'Dark',
+                'theme.light': 'Light',
+                
+                'hero.kicker': 'CSE Student Portfolio',
+                'hero.title': "Hi, I'm <br><span class='highlight'>Shakil Ahmed</span>",
+                'hero.subtitle': 'Undergraduate CSE Student | Aspiring Software Engineer | Competitive Programmer',
+                'hero.description': "My goal is to build a successful career in the tech and IT industry by creating innovative solutions, contributing to impactful projects, and continuously growing as a developer.",
+                'hero.btnContact': 'Get In Touch <i class="fas fa-arrow-right"></i>',
+                'hero.btnProjects': 'View Projects <i class="fas fa-code"></i>',
+                
+                'about.title': 'About Me',
+                'about.p1': 'Hello! I am Shakil Ahmed, a dedicated Computer Science and Engineering student currently in my 1st year, 2nd semester at Pirojpur Science and Technology University. My academic journey is built on a strong foundation, having achieved a GPA of 5.00 in my SSC from Sonar Bangla Secondary High School and a 4.58 in my HSC from Alekanda Govt. College, Barishal.',
+                'about.p2': 'I am passionate about problem-solving and software development. My current technical toolkit includes C, C++, Python, and MySQL. To continuously sharpen my algorithmic thinking and coding efficiency, I regularly tackle competitive programming challenges on platforms like Codeforces, CodeChef, and HackerRank.',
+                'about.p3': 'My ultimate goal is to build a successful career in the tech and IT sector, where I can leverage my skills to contribute to innovative projects and continuously grow as a developer.',
+                'about.info1': 'BSc in CSE, PrSTU',
+                'about.info2': 'Barguna, Bangladesh',
+                'about.info3': 'Expected 2028',
+                
+                'skills.title': 'My Skills',
+                'skills.card1.title': '<i class="fas fa-code"></i> Languages',
+                'skills.card2.title': '<i class="fas fa-laptop-code"></i> Web Development',
+                'skills.card3.title': '<i class="fas fa-database"></i> Database',
+                'skills.card4.title': '<i class="fas fa-code-branch"></i> Version Control',
+                'skills.card5.title': '<i class="fas fa-tools"></i> IDEs / Tools',
+                
+                'education.title': 'Education',
+                'education.bsc.title': 'B.Sc. in Computer Science and Engineering',
+                'education.bsc.date': '2023 - Expected 2028',
+                'education.bsc.uni': 'Pirojpur Science and Technology University (PrSTU)',
+                'education.bsc.cgpa': '1st Semester CGPA: 3.54',
+                'education.bsc.desc': 'Focused on competitive programming, data structures, algorithms, OOP with C++, and software engineering fundamentals.',
+                'education.hsc.title': 'Higher Secondary Certificate (HSC)',
+                'education.hsc.date': 'Passed 2023',
+                'education.hsc.school': 'Alekanda Govt. College, Barishal',
+                'education.hsc.gpa': 'GPA: 4.58',
+                'education.hsc.desc': 'Completed with a science background, building strong fundamentals in mathematics and physics.',
+                'education.ssc.title': 'Secondary School Certificate (SSC)',
+                'education.ssc.date': 'Completed',
+                'education.ssc.school': 'Ayla Patakata Sonarbangla High School, Barguna',
+                'education.ssc.gpa': 'GPA: 5.00',
+                'education.ssc.desc': 'Started my academic journey with a passion for science and technology.',
+                
+                'projects.title': 'My Projects',
+                'projects.card1.title': 'C++ Programming Code(Basic,OOP,STL)',
+                'projects.card1.desc': 'A comprehensive practice repository covering core C++ fundamentals, Object-Oriented Programming, and the Standard Template Library (STL).',
+                'projects.card2.title': 'C Programming Code',
+                'projects.card2.desc': 'A collection of my C programming codes covering basic concepts, logic building, and problem-solving.',
+                'projects.card2.tag1': 'C',
+                'projects.card2.tag2': 'Programming',
+                
+                'achievements.title': 'Achievements & Certifications',
+                'ach.card1': '16th Undergraduate Math Olympiad',
+                'ach.card2': 'Coursera MS Excel Course',
+                'ach.card3': 'Coursera C Programming',
+                'ach.card4': 'Educative HTML, CSS, JavaScript',
+                'ach.card5': 'Educative OOP with C++',
+                'ach.btn': 'View Certificate',
+                
+                'contact.title': 'Get In Touch',
+                'contact.subtitle': "Let's Connect",
+                'contact.desc': 'I am always open to discussing competitive programming, collaboration, and technology opportunities around the world.',
+                'contact.university': 'Pirojpur Science and Technology University',
+                'contact.location': 'Barguna, Bangladesh',
+                'contact.form.name': 'Your Name',
+                'contact.form.email': 'Your Email',
+                'contact.form.message': 'Your Message',
+                'contact.form.button': 'Send Message',
+                
+                'footer.copy': 'Copyright 2026 Shakil Ahmed. All rights reserved.',
+                'footer.note': 'Designed by a PrSTU CSE student with global ambition.',
+                'alert.fill': 'Please fill in all fields',
+                'alert.email': 'Please enter a valid email address',
+                'alert.success': "Thank you, {name}! Your message has been received. I will get back to you soon."
+            },
+            de: {
+                'nav.home': 'Startseite',
+                'nav.about': 'Uber Mich',
+                'nav.skills': 'Fahigkeiten',
+                'nav.education': 'Ausbildung',
+                'nav.projects': 'Projekte',
+                'nav.achievements': 'Erfolge',
+                'nav.contact': 'Kontakt',
+                
+                'theme.dark': 'Dunkel',
+                'theme.light': 'Hell',
+                
+                'hero.kicker': 'CSE Studentenportfolio',
+                'hero.title': "Hallo, ich bin <br><span class='highlight'>Shakil Ahmed</span>",
+                'hero.subtitle': 'Informatikstudent | Zukuenftiger Softwareentwickler | Wettbewerbsprogrammierer',
+                'hero.description': "Mein Ziel ist es, eine erfolgreiche Karriere in der Tech- und IT-Branche aufzubauen, indem ich innovative Lösungen entwickle, zu wirkungsvollen Projekten beitrage und mich als Entwickler stetig weiterentwickle.",
+                'hero.btnContact': 'Kontakt <i class="fas fa-arrow-right"></i>',
+                'hero.btnProjects': 'Projekte Ansehen <i class="fas fa-code"></i>',
+                
+                'about.title': 'Uber Mich',
+                'about.p1': 'Hallo! Ich bin Shakil Ahmed, ein engagierter Student der Informatik und Ingenieurwissenschaften, derzeit im 1. Jahr, 2. Semester an der Pirojpur Science and Technology University. Mein akademischer Weg basiert auf einem starken Fundament mit einem GPA von 5.00 im SSC an der Sonar Bangla Secondary High School und 4.58 im HSC am Alekanda Govt. College, Barishal.',
+                'about.p2': 'Meine Leidenschaft gilt der Problemlösung und Softwareentwicklung. Mein aktuelles technisches Toolkit umfasst C, C++, Python und MySQL. Um mein algorithmisches Denken und meine Programmiereffizienz kontinuierlich zu verbessern, löse ich regelmäßig Wettbewerbsaufgaben auf Plattformen wie Codeforces, CodeChef und HackerRank.',
+                'about.p3': 'Mein ultimatives Ziel ist es, eine erfolgreiche Karriere in der Tech- und IT-Branche aufzubauen, wo ich meine Fähigkeiten einsetzen kann, um zu innovativen Projekten beizutragen und mich als Entwickler stetig weiterzuentwickeln.',
+                'about.info1': 'BSc in CSE, PrSTU',
+                'about.info2': 'Barguna, Bangladesch',
+                'about.info3': 'Voraussichtlich 2028',
+                
+                'skills.title': 'Meine Fahigkeiten',
+                'skills.card1.title': '<i class="fas fa-code"></i> Sprachen',
+                'skills.card2.title': '<i class="fas fa-laptop-code"></i> Webentwicklung',
+                'skills.card3.title': '<i class="fas fa-database"></i> Datenbank',
+                'skills.card4.title': '<i class="fas fa-code-branch"></i> Versionskontrolle',
+                'skills.card5.title': '<i class="fas fa-tools"></i> IDEs / Werkzeuge',
+                
+                'education.title': 'Ausbildung',
+                'education.bsc.title': 'B.Sc. in Informatik und Ingenieurwissenschaften',
+                'education.bsc.date': '2023 - Erwartet 2028',
+                'education.bsc.uni': 'Pirojpur Science and Technology University (PrSTU)',
+                'education.bsc.cgpa': 'CGPA im 1. Semester: 3.54',
+                'education.bsc.desc': 'Schwerpunkte sind Competitive Programming, Datenstrukturen, Algorithmen, OOP mit C++ und Softwaretechnik.',
+                'education.hsc.title': 'Higher Secondary Certificate (HSC)',
+                'education.hsc.date': 'Bestanden 2023',
+                'education.hsc.school': 'Alekanda Govt. College, Barishal',
+                'education.hsc.gpa': 'GPA: 4.58',
+                'education.hsc.desc': 'Abschluss im naturwissenschaftlichen Bereich mit starker Basis in Mathematik und Physik.',
+                'education.ssc.title': 'Secondary School Certificate (SSC)',
+                'education.ssc.date': 'Abgeschlossen',
+                'education.ssc.school': 'Ayla Patakata Sonarbangla High School, Barguna',
+                'education.ssc.gpa': 'GPA: 5.00',
+                'education.ssc.desc': 'Der Beginn meiner akademischen Reise mit Begeisterung fuer Wissenschaft und Technik.',
+                
+                'projects.title': 'Meine Projekte',
+                'projects.card1.title': 'C++ Programming Code(Basic,OOP,STL)',
+                'projects.card1.desc': 'Ein umfassendes Übungs-Repository für grundlegende C++ Konzepte, objektorientierte Programmierung und die Standard Template Library (STL).',
+                'projects.card2.title': 'C Programmierungscode',
+                'projects.card2.desc': 'Eine Sammlung meiner C-Programmiercodes, die grundlegende Konzepte, Logikaufbau und Problemlösung abdecken.',
+                'projects.card2.tag1': 'C',
+                'projects.card2.tag2': 'Programmierung',
+                
+                'achievements.title': 'Erfolge & Zertifikate',
+                'ach.card1': '16. Undergraduate Mathe-Olympiade',
+                'ach.card2': 'Coursera MS Excel Kurs',
+                'ach.card3': 'Coursera C Programmierung',
+                'ach.card4': 'Educative HTML, CSS, JavaScript',
+                'ach.card5': 'Educative OOP mit C++',
+                'ach.btn': 'Zertifikat ansehen',
+
+                'contact.title': 'Kontakt',
+                'contact.subtitle': 'Lass Uns Verbinden',
+                'contact.desc': 'Ich freue mich ueber Gesprache zu Competitive Programming, Zusammenarbeit und globalen Technologiechancen.',
+                'contact.university': 'Pirojpur Science and Technology University',
+                'contact.location': 'Barguna, Bangladesch',
+                'contact.form.name': 'Dein Name',
+                'contact.form.email': 'Deine E-Mail',
+                'contact.form.message': 'Deine Nachricht',
+                'contact.form.button': 'Nachricht Senden',
+                
+                'footer.copy': 'Copyright 2026 Shakil Ahmed. Alle Rechte vorbehalten.',
+                'footer.note': 'Gestaltet von einem PrSTU CSE Studenten mit globalen Zielen.',
+                'alert.fill': 'Bitte alle Felder ausfuellen',
+                'alert.email': 'Bitte eine gueltige E-Mail-Adresse eingeben',
+                'alert.success': 'Danke, {name}! Deine Nachricht wurde erhalten. Ich melde mich bald bei dir.'
+            },
+            bn: {
+                'nav.home': 'হোম',
+                'nav.about': 'আমার সম্পর্কে',
+                'nav.skills': 'স্কিলস',
+                'nav.education': 'শিক্ষা',
+                'nav.projects': 'প্রজেক্টস',
+                'nav.achievements': 'অর্জন',
+                'nav.contact': 'যোগাযোগ',
+                
+                'theme.dark': 'ডার্ক',
+                'theme.light': 'লাইট',
+                
+                'hero.kicker': 'সিএসই স্টুডেন্ট পোর্টফোলিও',
+                'hero.title': "হাই, আমি <br><span class='highlight'>শাকিল আহমেদ</span>",
+                'hero.subtitle': 'আন্ডারগ্র্যাজুয়েট সিএসই স্টুডেন্ট | আগ্রহী সফটওয়্যার ইঞ্জিনিয়ার | কম্পেটিটিভ প্রোগ্রামার',
+                'hero.description': "আমার লক্ষ্য হলো উদ্ভাবনী সমাধান তৈরি, কার্যকরী প্রজেক্টে অবদান রাখা এবং একজন ডেভেলপার হিসেবে প্রতিনিয়ত নিজেকে উন্নত করার মাধ্যমে প্রযুক্তি ও আইটি শিল্পে একটি সফল ক্যারিয়ার গড়া।",
+                'hero.btnContact': 'যোগাযোগ করুন <i class="fas fa-arrow-right"></i>',
+                'hero.btnProjects': 'প্রজেক্ট দেখুন <i class="fas fa-code"></i>',
+                
+                'about.title': 'আমার সম্পর্কে',
+                'about.p1': 'হ্যালো! আমি শাকিল আহমেদ, পিরোজপুর সায়েন্স অ্যান্ড টেকনোলজি ইউনিভার্সিটির কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং বিভাগের ১ম বর্ষ, ২য় সেমিস্টারের একজন নিবেদিত শিক্ষার্থী। আমার শিক্ষাজীবনের ভিত্তি বেশ মজবুত; আমি সোনার বাংলা সেকেন্ডারি হাই স্কুল থেকে এসএসসিতে ৫.০০ এবং আলেকান্দা সরকারি কলেজ, বরিশাল থেকে এইচএসসিতে ৪.৫৮ জিপিএ অর্জন করেছি।',
+                'about.p2': 'আমি সমস্যা সমাধান এবং সফটওয়্যার ডেভেলপমেন্ট নিয়ে কাজ করতে দারুণ আগ্রহী। আমার বর্তমান টেকনিক্যাল স্কিলের মধ্যে রয়েছে C, C++, Python এবং MySQL। আমার অ্যালগরিদমিক চিন্তা ও কোডিং দক্ষতা প্রতিনিয়ত শাণিত করতে আমি নিয়মিত Codeforces, CodeChef এবং HackerRank-এর মতো প্ল্যাটফর্মগুলোতে কম্পিটিটিভ প্রোগ্রামিং চর্চা করি।',
+                'about.p3': 'আমার চূড়ান্ত লক্ষ্য হলো প্রযুক্তি ও আইটি সেক্টরে একটি সফল ক্যারিয়ার গড়া, যেখানে আমি আমার দক্ষতা কাজে লাগিয়ে উদ্ভাবনী প্রজেক্টে অবদান রাখতে পারব এবং একজন ডেভেলপার হিসেবে প্রতিনিয়ত নিজেকে উন্নত করতে পারব।',
+                'about.info1': 'BSc in CSE, PrSTU',
+                'about.info2': 'বরগুনা, বাংলাদেশ',
+                'about.info3': 'সম্ভাব্য সমাপ্তি ২০২৮',
+                
+                'skills.title': 'আমার স্কিলস',
+                'skills.card1.title': '<i class="fas fa-code"></i> ল্যাঙ্গুয়েজ',
+                'skills.card2.title': '<i class="fas fa-laptop-code"></i> ওয়েব ডেভেলপমেন্ট',
+                'skills.card3.title': '<i class="fas fa-database"></i> ডাটাবেস',
+                'skills.card4.title': '<i class="fas fa-code-branch"></i> ভার্সন কন্ট্রোল',
+                'skills.card5.title': '<i class="fas fa-tools"></i> আইডিই / টুলস',
+                
+                'education.title': 'শিক্ষা',
+                'education.bsc.title': 'বি.এসসি ইন কম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং',
+                'education.bsc.date': '২০২৩ - সম্ভাব্য ২০২৮',
+                'education.bsc.uni': 'পিরোজপুর সায়েন্স অ্যান্ড টেকনোলজি ইউনিভার্সিটি (PrSTU)',
+                'education.bsc.cgpa': '১ম সেমিস্টার CGPA: 3.54',
+                'education.bsc.desc': 'কম্পেটিটিভ প্রোগ্রামিং, ডাটা স্ট্রাকচার, অ্যালগরিদম, C++ OOP এবং সফটওয়্যার ইঞ্জিনিয়ারিংয়ের উপর কাজ করছি।',
+                'education.hsc.title': 'এইচএসসি',
+                'education.hsc.date': 'পাস: ২০২৩',
+                'education.hsc.school': 'আলেকান্দা সরকারি কলেজ, বরিশাল',
+                'education.hsc.gpa': 'GPA: 4.58',
+                'education.hsc.desc': 'বিজ্ঞান বিভাগ থেকে সম্পন্ন, গণিত ও পদার্থবিজ্ঞানে শক্ত ভিত্তি তৈরি হয়েছে।',
+                'education.ssc.title': 'এসএসসি',
+                'education.ssc.date': 'সম্পন্ন',
+                'education.ssc.school': 'আইলা পাটাকাটা সোনারবাংলা হাই স্কুল, বরগুনা',
+                'education.ssc.gpa': 'GPA: 5.00',
+                'education.ssc.desc': 'বিজ্ঞান ও প্রযুক্তির প্রতি আগ্রহ নিয়ে একাডেমিক যাত্রা শুরু।',
+                
+                'projects.title': 'আমার প্রজেক্টস',
+                'projects.card1.title': 'C++ Programming Code(Basic,OOP,STL)',
+                'projects.card1.desc': 'C++ এর বেসিক ফান্ডামেন্টালস, অবজেক্ট-ওরিয়েন্টেড প্রোগ্রামিং (OOP) এবং স্ট্যান্ডার্ড টেমপ্লেট লাইব্রেরি (STL) নিয়ে একটি প্র্যাকটিস রিপোজিটরি।',
+                'projects.card2.title': 'C Programming Code',
+                'projects.card2.desc': 'বেসিক কনসেপ্ট, লজিক বিল্ডিং এবং প্রবলেম সলভিং নিয়ে আমার সি প্রোগ্রামিং কোডের একটি সংগ্রহ।',
+                'projects.card2.tag1': 'সি',
+                'projects.card2.tag2': 'প্রোগ্রামিং',
+                
+                'achievements.title': 'অর্জন ও সার্টিফিকেট',
+                'ach.card1': '১৬তম আন্ডারগ্র্যাজুয়েট ম্যাথ অলিম্পিয়াড',
+                'ach.card2': 'কোরসেরা এমএস এক্সেল কোর্স',
+                'ach.card3': 'কোরসেরা সি প্রোগ্রামিং',
+                'ach.card4': 'এডুকেটিভ এইচটিএমএল, সিএসএস, জাভাস্ক্রিপ্ট',
+                'ach.card5': 'এডুকেটিভ সি++ এর সাথে ওওপি (OOP)',
+                'ach.btn': 'সার্টিফিকেট দেখুন',
+
+                'contact.title': 'যোগাযোগ',
+                'contact.subtitle': 'চলুন কানেক্ট হই',
+                'contact.desc': 'কম্পেটিটিভ প্রোগ্রামিং, প্রজেক্ট সহযোগিতা এবং আন্তর্জাতিক টেক সুযোগ নিয়ে আলাপ করতে আমি সবসময় প্রস্তুত।',
+                'contact.university': 'পিরোজপুর সায়েন্স অ্যান্ড টেকনোলজি ইউনিভার্সিটি',
+                'contact.location': 'বরগুনা, বাংলাদেশ',
+                'contact.form.name': 'আপনার নাম',
+                'contact.form.email': 'আপনার ইমেইল',
+                'contact.form.message': 'আপনার বার্তা',
+                'contact.form.button': 'বার্তা পাঠান',
+                
+                'footer.copy': 'কপিরাইট ২০২৬ শাকিল আহমেদ। সর্বস্বত্ব সংরক্ষিত।',
+                'footer.note': 'PrSTU CSE শিক্ষার্থীর গ্লোবাল স্বপ্ন নিয়ে ডিজাইন করা।',
+                'alert.fill': 'সব ঘর পূরণ করুন',
+                'alert.email': 'সঠিক ইমেইল ঠিকানা দিন',
+                'alert.success': 'ধন্যবাদ, {name}! আপনার বার্তা পেয়েছি। শীঘ্রই যোগাযোগ করব।'
+            }
+        };
+
+        function setMenuState(isOpen) {
+            if (!hamburger || !navMenu) {
+                return;
+            }
+
+            navMenu.classList.toggle('active', isOpen);
+            const spans = hamburger.querySelectorAll('span');
+            if (spans.length < 3) {
+                return;
+            }
+
+            spans[0].style.transform = isOpen ? 'translateY(6px) rotate(45deg)' : 'none';
+            spans[1].style.opacity = isOpen ? '0' : '1';
+            spans[2].style.transform = isOpen ? 'translateY(-6px) rotate(-45deg)' : 'none';
+        }
+
+        function setActiveNavLink() {
+            let current = '';
+
+            sections.forEach((section) => {
+                if (window.scrollY >= section.offsetTop - 140) {
+                    current = section.getAttribute('id') || '';
+                }
+            });
+
+            navLinks.forEach((link) => {
+                const href = link.getAttribute('href') || '';
+                link.classList.toggle('active', href === `#${current}`);
+            });
+        }
+
+        function applyTheme(theme) {
+            const resolvedTheme = theme === 'light' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', resolvedTheme);
+            localStorage.setItem('portfolio-theme', resolvedTheme);
+
+            const icon = themeToggle ? themeToggle.querySelector('i') : null;
+            const label = themeToggle ? themeToggle.querySelector('span') : null;
+            if (icon) {
+                icon.className = resolvedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            }
+
+            if (label) {
+                const lang = localStorage.getItem('portfolio-lang') || 'en';
+                const key = resolvedTheme === 'dark' ? 'theme.dark' : 'theme.light';
+                label.textContent = translations[lang][key] || translations.en[key];
+            }
+        }
+
+        function applyLanguage(lang) {
+            const selectedLang = translations[lang] ? lang : 'en';
+            const dict = translations[selectedLang];
+
+            document.querySelectorAll('[data-i18n]').forEach((node) => {
+                const key = node.getAttribute('data-i18n');
+                if (!key || !dict[key]) {
+                    return;
+                }
+                node.innerHTML = dict[key];
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach((node) => {
+                const key = node.getAttribute('data-i18n-placeholder');
+                if (!key || !dict[key]) {
+                    return;
+                }
+                node.setAttribute('placeholder', dict[key]);
+            });
+
+            if (languageSelect) {
+                languageSelect.value = selectedLang;
+            }
+
+            document.documentElement.lang = selectedLang === 'de' ? 'de' : selectedLang === 'bn' ? 'bn' : 'en';
+            localStorage.setItem('portfolio-lang', selectedLang);
+
+            const activeTheme = localStorage.getItem('portfolio-theme') || 'dark';
+            const themeLabel = themeToggle ? themeToggle.querySelector('span') : null;
+            if (themeLabel) {
+                const key = activeTheme === 'dark' ? 'theme.dark' : 'theme.light';
+                themeLabel.textContent = dict[key] || translations.en[key];
+            }
+        }
+
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', () => {
+                const isOpen = !navMenu.classList.contains('active');
+                setMenuState(isOpen);
+            });
+        }
+
+        navLinks.forEach((link) => {
+            link.addEventListener('click', (event) => {
+                const href = link.getAttribute('href');
+                if (!href || !href.startsWith('#')) {
+                    return;
+                }
+
+                event.preventDefault();
+                const target = document.querySelector(href);
+                if (!target) {
+                    return;
+                }
+
+                window.scrollTo({
+                    top: target.offsetTop - 74,
+                    behavior: 'smooth'
+                });
+
+                setMenuState(false);
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            if (navbar) {
+                navbar.classList.toggle('scrolled', window.scrollY > 20);
+            }
+            setActiveNavLink();
+        });
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.body.getAttribute('data-theme') || 'dark';
+                applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+            });
+        }
+
+        if (languageSelect) {
+            languageSelect.addEventListener('change', () => {
+                applyLanguage(languageSelect.value);
+            });
+        }
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const lang = localStorage.getItem('portfolio-lang') || 'en';
+                const dict = translations[lang] || translations.en;
+
+                const nameInput = document.getElementById('name');
+                const emailInput = document.getElementById('email');
+                const messageInput = document.getElementById('message');
+
+                if (!nameInput || !emailInput || !messageInput) {
+                    return;
+                }
+
+                const name = nameInput.value.trim();
+                const email = emailInput.value.trim();
+                const message = messageInput.value.trim();
+
+                if (!name || !email || !message) {
+                    alert(dict['alert.fill']);
+                    return;
+                }
+
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert(dict['alert.email']);
+                    return;
+                }
+
+                alert(dict['alert.success'].replace('{name}', name));
+                contactForm.reset();
+            });
+        }
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            },
+            { threshold: 0.12 }
+        );
+
+        document.querySelectorAll('.reveal').forEach((element) => {
+            observer.observe(element);
+        });
+
+        const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
+        const savedLang = localStorage.getItem('portfolio-lang') || 'en';
+        applyTheme(savedTheme);
+        applyLanguage(savedLang);
+        setActiveNavLink();
+        setMenuState(false);
+    </script>
+</body>
+</html>
